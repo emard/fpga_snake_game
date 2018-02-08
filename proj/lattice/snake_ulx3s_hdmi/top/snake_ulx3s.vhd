@@ -1,5 +1,5 @@
 ----------------------------
--- ULX3S Top level for ORAO
+-- ULX3S Top level for SNAKE
 -- http://github.com/emard
 ----------------------------
 
