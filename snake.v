@@ -2,7 +2,7 @@
 // Magnus Karlsson
 // See http://www.instructables.com/id/Snake-on-an-FPGA-Verilog/ for info about the original project
 
-module Snake(start, master_clk, KB_clk, KB_data, VGA_R, VGA_G, VGA_B, VGA_hSync, VGA_vSync, VGA_Blank);
+module snake_v(start, master_clk, KB_clk, KB_data, VGA_R, VGA_G, VGA_B, VGA_hSync, VGA_vSync, VGA_Blank);
   input start;
   input master_clk, KB_clk, KB_data;
   output reg [2:0] VGA_R;
