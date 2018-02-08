@@ -2,13 +2,14 @@
 // Magnus Karlsson
 // See http://www.instructables.com/id/Snake-on-an-FPGA-Verilog/ for info about the original project
 
-module Snake(start, master_clk, KB_clk, KB_data, VGA_R, VGA_G, VGA_B, VGA_hSync, VGA_vSync);
+module Snake(start, master_clk, KB_clk, KB_data, VGA_R, VGA_G, VGA_B, VGA_hSync, VGA_vSync, VGA_Blank);
   input start;
   input master_clk, KB_clk, KB_data;
   output reg [2:0] VGA_R;
   output reg [2:0] VGA_G;
   output reg [1:0] VGA_B;
   output VGA_hSync, VGA_vSync;
+  output VGA_Blank;
 
   // How much the snake grows for each apple hit
   parameter [6:0] SIZE_INCREASE = 4;
@@ -42,6 +43,7 @@ module Snake(start, master_clk, KB_clk, KB_data, VGA_R, VGA_G, VGA_B, VGA_hSync,
       .PSINCDEC(1'b0), .PSCLK(1'b0), .DSSEN(1'b0), .CLK0(VGA_clk));
 
   VGA_gen gen1(VGA_clk, xCount, yCount, displayArea, VGA_hSync, VGA_vSync);
+  assign VGA_Blank = ~displayArea;
   randomGrid rand1(VGA_clk, rand_X, rand_Y);
   kbInput kbIn(VGA_clk, KB_clk, KB_data, direction);
   updateClk UPDATE(VGA_clk, update);
