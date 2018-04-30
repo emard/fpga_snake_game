@@ -1,6 +1,9 @@
 // Snake game modified for Pepino
 // Magnus Karlsson
 // See http://www.instructables.com/id/Snake-on-an-FPGA-Verilog/ for info about the original project
+// PS2 keys:
+//   W 
+// A S D
 
 module snake_v(start, VGA_clk, KB_clk, KB_data, VGA_R, VGA_G, VGA_B, VGA_hSync, VGA_vSync, VGA_Blank);
   input start, VGA_clk, KB_clk, KB_data;
@@ -211,13 +214,13 @@ module kbInput(VGA_clk, KB_clk, KB_data, direction);
     shreg <= (endbit) ? 11'h7FF : shift ? {KB_data, shreg[10:1]} : shreg;
     if (endbit)
       code <= shreg[8:1];
-    if(code == 8'h1D)
+    if(code == 8'h1D) // W
       direction <= 4'b0001;
-    else if(code == 8'h1C)
+    else if(code == 8'h1C) // A
       direction <= 4'b0010;
-    else if(code == 8'h1B)
+    else if(code == 8'h1B) // S
       direction <= 4'b0100;
-    else if(code == 8'h23)
+    else if(code == 8'h23) // D
       direction <= 4'b1000;
   end   
 endmodule
