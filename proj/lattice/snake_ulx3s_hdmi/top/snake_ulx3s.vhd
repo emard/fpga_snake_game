@@ -168,27 +168,15 @@ begin
       out_clock => dvid_clock
   );
 
-  -- this module instantiates vendor specific modules ddr_out to
+  -- vendor specific DDR modules
   -- convert SDR 2-bit input to DDR clocked 1-bit output (single-ended)
-  G_vgatext_ddrout: entity work.ddr_dvid_out_se
-  port map
-  (
-    clk       => clk_pixel_shift,
-    clk_n     => clkn_pixel_shift,
-    in_red    => dvid_red,
-    in_green  => dvid_green,
-    in_blue   => dvid_blue,
-    in_clock  => dvid_clock,
-    out_red   => ddr_d(2),
-    out_green => ddr_d(1),
-    out_blue  => ddr_d(0),
-    out_clock => ddr_clk
-  );
-
-  gpdi_data_channels: for i in 0 to 2 generate
-    gpdi_diff_data: OLVDS
-    port map(A => ddr_d(i), Z => gpdi_dp(i), ZN => gpdi_dn(i));
+  ddr_red:   ODDRX1F port map (D0=>dvid_red(0),   D1=>dvid_red(1),   Q=>ddr_d(2), SCLK=>clk_pixel_shift, RST=>'0');
+  ddr_green: ODDRX1F port map (D0=>dvid_green(0), D1=>dvid_green(1), Q=>ddr_d(1), SCLK=>clk_pixel_shift, RST=>'0');
+  ddr_blue:  ODDRX1F port map (D0=>dvid_blue(0),  D1=>dvid_blue(1),  Q=>ddr_d(0), SCLK=>clk_pixel_shift, RST=>'0');
+  ddr_clock: ODDRX1F port map (D0=>dvid_clock(0), D1=>dvid_clock(1), Q=>ddr_clk,  SCLK=>clk_pixel_shift, RST=>'0');
+  -- vendor specific modules for differential output
+  gpdi_differential_data: for i in 0 to 2 generate
+    gpdi_diff_data: OLVDS port map(A => ddr_d(i), Z => gpdi_dp(i), ZN => gpdi_dn(i));
   end generate;
-  gpdi_diff_clock: OLVDS
-  port map(A => ddr_clk, Z => gpdi_clkp, ZN => gpdi_clkn);
+  gpdi_diff_clock: OLVDS port map(A => ddr_clk, Z => gpdi_clkp, ZN => gpdi_clkn);
 end struct;
