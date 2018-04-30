@@ -8,6 +8,7 @@ use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.ALL;
 use IEEE.numeric_std.all;
 
+-- vendor specific library for clock, ddr and differential video out
 library ecp5u;
 use ecp5u.components.all;
 
@@ -18,7 +19,7 @@ generic
 );
 port
 (
-  clk_25MHz: in std_logic;  -- main clock input from 25MHz clock source
+  clk_25mhz: in std_logic;  -- main clock input from 25MHz clock source
 
   -- UART0 (FTDI USB slave serial)
   ftdi_rxd: out   std_logic;
