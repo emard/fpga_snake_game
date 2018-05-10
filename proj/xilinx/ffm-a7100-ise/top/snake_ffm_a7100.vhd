@@ -28,8 +28,8 @@ end;
 architecture struct of snake_ffm_a7100 is
         signal reset_n: std_logic := '1';
 
-	alias ps2_clk : std_logic is fio0(0);
-	alias ps2_dat : std_logic is fio0(1);
+	alias ps2_clk : std_logic is fio0(6);
+	alias ps2_dat : std_logic is fio0(4);
 
 	signal clk_100MHz, clk_fb: std_logic;
 	signal clk_pixel, clk_pixel_shift, clkn_pixel_shift: std_logic;
