@@ -40,7 +40,7 @@ module ulx3s_snake
     snake_v
     snake_v_instance
     (
-      .start(btn[1]),
+      .start(~btn[0]), // btn0 is different, returns 0 when pressed
       .VGA_clk(clk_pixel),
       .KB_clk(usb_fpga_dp),
       .KB_data(usb_fpga_dn),

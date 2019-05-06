@@ -43,7 +43,7 @@ module snake_v(start, VGA_clk, KB_clk, KB_data, VGA_R, VGA_G, VGA_B, VGA_hSync, 
   updateClk UPDATE(VGA_clk, update);
   
   always@(posedge VGA_clk) begin
-    if (~start) begin
+    if (start) begin
       // place the snake head at display center
       snakeX[0] <= 40;
       snakeY[0] <= 30;
